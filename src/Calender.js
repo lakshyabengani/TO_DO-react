@@ -1,0 +1,151 @@
+import React from 'react'
+import addMonths from 'date-fns/addMonths'
+import subMonths from 'date-fns/subMonths'
+import { isSameYear,isSameMonth,isSameDay,addDays, format,startOfMonth,endOfMonth,startOfWeek,endOfWeek} from 'date-fns'
+import Task from "./Task"
+
+class Calender extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            currentMonth : new Date(),
+            selectedDate : new Date(),
+        };
+    }
+
+    renderHeader(){
+        const dateFormat = "MMMM yyyy";
+  return (
+    <div className="header row flex-middle">
+      <div className="col col-start">
+        <div className="icon" onClick={this.prevMonth}>
+          chevron_left
+        </div>
+      </div>
+      <div className="col col-center">
+        <span>
+          {format(this.state.currentMonth, dateFormat)}
+        </span>
+      </div>
+      <div className="col col-end" onClick={this.nextMonth}>
+        <div className="icon">chevron_right</div>
+      </div>
+    </div>
+  );   
+    }
+
+    renderDays(){
+        const dateFormat = "EEEE" ;
+        const days = [];
+  let startDate = startOfWeek(this.state.currentMonth);
+  for (let i = 0; i < 7; i++) {
+    days.push(
+      <div className="col col-center" key={i}>
+        {format(addDays(startDate, i), dateFormat)}
+      </div>
+    );
+  }
+  return <div className="days row">{days}</div>;
+    }
+
+    renderCells(){
+        const style = { 
+          backgroundColor : "paleturquoise"
+        }
+        const { currentMonth, selectedDate } = this.state;
+        const monthStart = startOfMonth(currentMonth);
+        const monthEnd = endOfMonth(monthStart);
+        const startDate = startOfWeek(monthStart);
+        const endDate = endOfWeek(monthEnd);
+        const dateFormat = "d";
+        const rows = [];
+        let days = [];
+        let day = startDate;
+        let formattedDate = "";
+        while (day <= endDate) {
+        for (let i = 0; i < 7; i++) {
+            formattedDate = format(day, dateFormat);
+            const cloneDay = day;
+            days.push(
+            <div
+                className={`col cell ${
+                !isSameMonth(day, monthStart)
+                    ? "disabled"
+                    : isSameDay(day, selectedDate) ? "selected" : ""
+                }`}
+                key={day}
+                onClick={() => this.onDateClick(cloneDay)}
+                style = { this.hasTasks(day) ? style : null}
+            >
+                <span className="number">{formattedDate}</span>
+                <span className="bg">{formattedDate}</span>
+            </div>
+            );
+            day = addDays(day, 1);
+        }
+        rows.push(
+            <div className="row" key={day}>
+            {days}
+            </div>
+        );
+        days = [];
+        }
+        return <div className="body">{rows}</div>;
+    }
+
+    hasTasks(date1){
+      const arr = this.props.list.filter(item => this.isSameDate(date1,item.deadline));
+      if(arr.length >0)
+      return true;
+      else
+      return false;
+    }
+
+    isSameDate(date1,date2){
+        return (!isSameYear(date1,date2)?false
+        : !isSameMonth(date1, date2)
+                    ? false
+                    : isSameDay(date1, date2) ? true : false)
+    }
+
+    onDateClick = day =>{
+        this.setState({
+            selectedDate : day
+        });
+    }
+
+    nextMonth =() => {
+        this.setState({
+            currentMonth : addMonths(this.state.currentMonth,1)
+        });
+    };
+
+    prevMonth = () => {
+        this.setState({
+            currentMonth : subMonths(this.state.currentMonth,1)
+        });
+    };
+
+    renderTasks(){
+        const Tasks = this.props.list.filter(item => this.isSameDate(item.deadline,this.state.selectedDate)).map(item=> <Task key={item.id} item={item}/>)
+        //console.log(Tasks)
+        if(Tasks.length >0)
+        return <div>{Tasks}</div>
+        else
+        return <div>NO TASKS FOR THIS DATE :) </div> 
+    }
+
+    render(){
+        //console.log(this.props)
+        return (
+            <div className="calendar">
+                {this.renderHeader()}
+                {this.renderDays()}
+                {this.renderCells()}
+                {this.renderTasks()}
+            </div>
+        );
+    }
+}
+
+export default Calender

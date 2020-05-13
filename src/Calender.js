@@ -68,7 +68,7 @@ class Calender extends React.Component{
             const cloneDay = day;
             days.push(
             <div
-                className={`col cell ${
+                className={`tooltip col cell ${
                 !isSameMonth(day, monthStart)
                     ? "disabled"
                     : isSameDay(day, selectedDate) ? "selected" : ""
@@ -77,9 +77,14 @@ class Calender extends React.Component{
                 onClick={() => this.onDateClick(cloneDay)}
                 style = { this.hasTasks(day) ? style : null}
             >
-                <span className="number">{formattedDate}</span>
+              <span className="tooltiptext"><h6>
+                TOTAL : {this.ProgressStatus(day)[0]}
+                <br></br>
+                DONE : {this.ProgressStatus(day)[1]}
+              </h6></span>
+                <span className="number" title="this is working">{formattedDate}</span>
                 <span className="bg">{formattedDate}</span>
-            </div>
+             </div>
             );
             day = addDays(day, 1);
         }
@@ -91,6 +96,17 @@ class Calender extends React.Component{
         days = [];
         }
         return <div className="body">{rows}</div>;
+    }
+
+    ProgressStatus(date1){
+      const arr = this.props.list.filter(item => this.isSameDate(date1,item.deadline));
+      var l_total = arr.length;
+      var l_done = 0;
+      if(l_total > 0){
+        const d = arr.filter(item => item.completed === true);
+        l_done = d.length;
+      }
+      return [l_total,l_done];
     }
 
     hasTasks(date1){
@@ -132,7 +148,7 @@ class Calender extends React.Component{
         if(Tasks.length >0)
         return <div>{Tasks}</div>
         else
-        return <div>NO TASKS FOR THIS DATE :) </div> 
+        return <div align ="center"><h1>NO TASKS FOR THIS DATE :)</h1> </div> 
     }
 
     render(){

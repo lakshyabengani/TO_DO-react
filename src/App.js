@@ -82,8 +82,8 @@ class App extends React.Component {
            </select>
          </label>
          <label>
-           DEADLINE DATE:
-            <input type ="date" name="deadline" onChange={this.handleText}/>
+           DEADLINE DATE: 
+            <input type ="date" name="deadline" onChange={this.handleText} style={{margin:"20px",padding:"10px"}}/>
             <input type="submit" value="Submit" style={{margin:"20px",padding:"10px"}}/>
           </label>
           </h2>

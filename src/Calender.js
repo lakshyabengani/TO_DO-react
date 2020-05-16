@@ -35,7 +35,7 @@ class Calender extends React.Component{
     }
 
     renderDays(){
-        const dateFormat = "EEEE" ;
+        const dateFormat = "EEE" ;
         const days = [];
   let startDate = startOfWeek(this.state.currentMonth);
   for (let i = 0; i < 7; i++) {

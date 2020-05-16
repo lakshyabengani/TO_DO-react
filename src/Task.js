@@ -8,7 +8,9 @@ function Task(props){
                 <br />
                 Priority : {props.item.priority}
                 <br />
-                Status:{props.item.completed ? "Completed" : "Due" }       
+                Status:{props.item.completed ? "Completed" : "Due" }   
+                <br />
+                Label:{props.item.label}    
             </h3>
         </div>
     )

@@ -7,15 +7,23 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "bootstrap": "^4.5.0",
     "date-fns": "^2.12.0",
+    "eslint-plugin-flowtype": "^4.7.0",
+    "jquery": "^1.9.1",
     "moments": "0.0.2",
+    "node-sass": "^4.14.1",
+    "popper.js": "^1.16.1",
     "react": "^16.13.1",
+    "react-accessible-accordion": "^3.0.1",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.0",
+    "typescript": "^3.9.2"
   },
   "scripts": {
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -37,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "bpk-component-accordion": "^2.1.52",
     "gh-pages": "^2.2.0"
   }
 }

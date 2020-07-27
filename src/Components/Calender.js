@@ -3,6 +3,7 @@ import addMonths from 'date-fns/addMonths'
 import subMonths from 'date-fns/subMonths'
 import { isSameYear,isSameMonth,isSameDay,addDays, format,startOfMonth,endOfMonth,startOfWeek,endOfWeek} from 'date-fns'
 import Task from "./Task"
+import '../Styles/App.css';
 
 class Calender extends React.Component{
     constructor(props){

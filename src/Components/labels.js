@@ -1,6 +1,6 @@
 import React from 'react';
 import TodoItem from "./TodoItem";
-import "./Todo.css"
+import "../Styles/Todo.css";
 
 import {
     Accordion,
@@ -10,7 +10,7 @@ import {
     AccordionItemPanel,
 } from 'react-accessible-accordion';
 
-import "./Labels.css"
+import "../Styles/Labels.css"
 
 function renderBody(todoItems){
     if(todoItems.length > 0)

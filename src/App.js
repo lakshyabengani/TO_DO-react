@@ -1,9 +1,9 @@
 import React from 'react';
-import './App.css';
-import Calender from './Calender';
-import './Todo.css';
-import Labels from "./labels";
-import "./Labels.css"
+import './Styles/App.css';
+import NavBar from './Components/NavBar';
+import Home from './Components/Home';
+import Calender from './Components/Calender';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -15,14 +15,28 @@ class App extends React.Component {
           label: "",
           priority: "Low",
           id : 0,
-          deadline: new Date()
+          deadline: new Date(),
+          showModal : false,
       }
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
       this.handleText = this.handleText.bind(this)
       this.handleDelete = this.handleDelete.bind(this)
+      this.handleModal = this.handleModal.bind(this)
   }
   
+  handleModal(){
+    this.setState({
+      showModal : true
+    })
+  }
+
+  handleClose =() =>{
+    this.setState({
+      showModal : false
+    })
+  }
+
   handleDelete(id){
     this.setState(prevState =>{
       const todos = prevState.todos.filter(item => item.id!==id);
@@ -43,7 +57,6 @@ class App extends React.Component {
           }
       })
   }
-
 
   handleText(event){
     const {name, value} = event.target
@@ -69,51 +82,28 @@ class App extends React.Component {
         Label_List,
         val : "",
         id : state.id + 1,
-        label: ""
+        label: "",
+        showModal : false,
       }
     })
     event.preventDefault();
   }
 
   render() { 
-    console.log(this.state);     
-      const LabelItems = this.state.Label_List.map(item => <Labels key={item.id} 
-      label={item.label}  todos={this.state.todos} handleDelete={this.handleDelete} handleChange={this.handleChange}/>)
       return (
-          <div>
-            <div className="col col-center">
-            <h1>TO-DO APP</h1>
-            </div>
-            <p/>
-            <div align="center">
-          <form onSubmit={this.handleSubmit}>
-            <h2>Enter Task<input name="val" value={this.state.val} onChange={this.handleText} placeholder="ENTER YOUR TASK" style={{margin:"20px",padding:"10px"}}/>
-            Enter Label<input name="label" value={this.state.label} onChange={this.handleText} placeholder="ENTER TASK LABEL" style={{margin:"20px",padding:"10px"}}/>
-            <label>
-           TASK PRIORITY:
-           <select name ="priority" value={this.state.priority} onChange={this.handleText}style={{margin:"20px",padding:"10px"}}>
-             <option value="Low">Low</option>
-             <option value="Important">Important</option>
-           </select>
-         </label>
-         <br />
-         <label>
-           DEADLINE DATE: 
-            <input type ="date" name="deadline" onChange={this.handleText} style={{margin:"20px",padding:"10px"}}/>
-            <input type="submit" value="Submit" style={{margin:"20px",padding:"10px"}}/>
-          </label>
-          </h2>
-          </form>
-          </div>
-          <p/>
-          <div>
-            {LabelItems}
-          </div>
-          <div>
-            <p />
-            <Calender list={this.state.todos}/>
-            </div>
-          </div>
+        <div>
+          <BrowserRouter>
+          <NavBar />
+          <Switch>
+            <Route exact path="/Home" render={()=><Home Label_List={this.state.Label_List} todos={this.state.todos} handleDelete={this.handleDelete} handleChange={this.handleChange}
+            handleModal={this.handleModal} showModal={this.state.showModal} val={this.state.val} handleSubmit={this.handleSubmit} handleText={this.handleText} handleClose={this.handleClose} />} />
+            <Route exact path="/">
+              <Redirect to="/Home" />
+            </Route>
+            <Route exact path="/Progress" render={()=> <Calender list={this.state.todos} />} />
+          </Switch>
+          </BrowserRouter>            
+        </div>
       )    
   }
 }

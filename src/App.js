@@ -94,6 +94,7 @@ class App extends React.Component {
         <div>
           <BrowserRouter>
           <NavBar />
+          <div class="grid">
           <Switch>
             <Route exact path="/Home" render={()=><Home Label_List={this.state.Label_List} todos={this.state.todos} handleDelete={this.handleDelete} handleChange={this.handleChange}
             handleModal={this.handleModal} showModal={this.state.showModal} val={this.state.val} handleSubmit={this.handleSubmit} handleText={this.handleText} handleClose={this.handleClose} />} />
@@ -102,6 +103,7 @@ class App extends React.Component {
             </Route>
             <Route exact path="/Progress" render={()=> <Calender list={this.state.todos} />} />
           </Switch>
+          </div>
           </BrowserRouter>            
         </div>
       )    

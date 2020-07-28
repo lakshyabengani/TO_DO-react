@@ -16,7 +16,7 @@ class Home extends React.Component{
             return LabelItems;
         }
         else{
-            return <div align ="center"><h1>NO TASKS PRESENT :)</h1> </div>
+            return <div align ="center" class="col col-center"><h1>NO TASKS PRESENT :)</h1> </div>
         }
     }
 
@@ -24,12 +24,13 @@ class Home extends React.Component{
         
         return (
             <div>
-                <h2><button align="center" onClick={()=> this.props.handleModal()}>Add Task</button></h2>
+                {/* <h2><button align="center" onClick={()=> this.props.handleModal()}>Add Task</button></h2> */}
                 <Modal show={this.props.showModal} val={this.props.val} handleText={this.props.handleText} handleSubmit={this.props.handleSubmit} handleClose ={this.props.handleClose} />
                 <p/>
                 <div>
                     {this.renderTodo()}
                 </div>
+                <i class="fa fa-plus-circle icons" aria-hidden="true" onClick={()=> this.props.handleModal()}></i>
             </div>
         )    
     }

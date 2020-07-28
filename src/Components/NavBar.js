@@ -5,15 +5,15 @@ import '../Styles/NavBar.css';
 
 const NavBar = () => {
   return (
-    <div>
-      <h5>To DO APP</h5>
+    <div align="center">
+      <h1>To-Do</h1>
+      <h3>
       <ul>
         <li><Link to="/Home">Home</Link></li>
         <li><Link to="/Progress">Progress</Link></li>
-        <li float="right">Login</li>
-        <li float="right">Register</li>
+        <li style={{float:"right"}}><i class="fa fa-sign-in" aria-hidden="true"> Login/Register</i></li>
      	</ul>
-      <hr />
+       </h3>
     </div>
   );
 };

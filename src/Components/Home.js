@@ -7,7 +7,22 @@ class Home extends React.Component{
     
     constructor(props){
         super(props);
+        this.state = {
+            showModal : false,
+        }
     }
+
+    handleModal = () =>{
+        this.setState({
+          showModal : true
+        })
+      }
+    
+      handleClose =() =>{
+        this.setState({
+          showModal : false
+        })
+      }
 
     renderTodo =()=>{
         if(this.props.Label_List.length > 0){      
@@ -16,7 +31,7 @@ class Home extends React.Component{
             return LabelItems;
         }
         else{
-            return <div align ="center" class="col col-center"><h1>NO TASKS PRESENT :)</h1> </div>
+            return <div align ="center" className="col col-center"><h1>NO TASKS PRESENT :)</h1> </div>
         }
     }
 
@@ -24,13 +39,12 @@ class Home extends React.Component{
         
         return (
             <div>
-                {/* <h2><button align="center" onClick={()=> this.props.handleModal()}>Add Task</button></h2> */}
-                <Modal show={this.props.showModal} val={this.props.val} handleText={this.props.handleText} handleSubmit={this.props.handleSubmit} handleClose ={this.props.handleClose} />
+                <Modal show={this.state.showModal} handleClose ={this.handleClose} addTodo={this.props.addTodo} addLabel={this.props.addLabel} />
                 <p/>
                 <div>
                     {this.renderTodo()}
                 </div>
-                <i class="fa fa-plus-circle icons" aria-hidden="true" onClick={()=> this.props.handleModal()}></i>
+                <i className="fa fa-plus-circle icons" aria-hidden="true" onClick={()=> this.handleModal()}></i>
             </div>
         )    
     }

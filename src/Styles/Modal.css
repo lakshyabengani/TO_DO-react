@@ -33,3 +33,7 @@
   flex-direction: column;
   align-content: space-between;
 }
+
+label{
+  margin: 2%;
+}

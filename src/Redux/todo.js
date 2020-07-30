@@ -3,6 +3,7 @@ import * as ActionType from './ActionTypes';
 export const manageTodo = (state = {todos : [] },action)=>{
     switch(action.type){
         case ActionType.ADD_TODO :
+            console.log(state);
             console.log("reached here");
             var element = action.payload;
             return state.todos.concat({

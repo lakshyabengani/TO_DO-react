@@ -6,6 +6,7 @@ class Modal extends React.Component{
 
   constructor(props){
     super(props);
+    console.log(props);
     this.state = {
       val: "",
       label: "",
@@ -20,8 +21,8 @@ class Modal extends React.Component{
   handleSubmit(event){
     let date = new Date(this.state.deadline);
     console.log(this.state);
-    // this.props.addTodo(this.state.id, this.state.val, date , this.state.label , this.state.priority);
-    // this.props.addLabel(this.state.id,this.state.label);
+    this.props.addTodo(this.state.id, this.state.val, date , this.state.label , this.state.priority);
+    this.props.addLabel(this.state.id,this.state.label);
     this.setState({
         val : "",
         id : this.state.id + 1,

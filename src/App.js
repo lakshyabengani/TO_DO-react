@@ -23,8 +23,9 @@ const mapDispatchToprops = dispatch =>({
 });
 
 class App extends React.Component {
-  constructor() {
-      super()
+  constructor(props) {
+      super(props)
+      console.log(props);
       // this.state = {
       //     todos: [],
       //     Label_List: [],
@@ -101,7 +102,7 @@ class App extends React.Component {
           <NavBar />
           <div className="grid">
           <Switch>
-            <Route exact path="/Home" render={()=><Home Label_List={this.props.Label_List} todos={this.props.todos} handleDelete={this.props.deleteTodo} handleChange={this.props.toggleTodo} addTodod={this.props.addTodo} addLabel={this.props.addLabel} />} />
+            <Route exact path="/Home" render={()=><Home Label_List={this.props.Label_List} todos={this.props.todos} handleDelete={this.props.deleteTodo} handleChange={this.props.toggleTodo} addTodo={this.props.addTodo} addLabel={this.props.addLabel} />} />
             <Route exact path="/">
               <Redirect to="/Home" />
             </Route>

@@ -1,22 +1,27 @@
 import * as ActionType from './ActionTypes';
 
-export const manageLabel = (state = { Label_List : [] },action)=>{
+export const manageLabel = (state = [] ,action)=>{
     switch(action.type){
         case ActionType.ADD_LABEL :
             var ele = action.payload;
             console.log(ele);
-            if(state.Label_List.length >0){
-                return state.Label_List.filter(item => item.label !== ele.label)
+            console.log(state);
+            if(state.length >0){
+                return state.filter(item => item.label !== ele.label)
                 .concat({
                     id: ele.id,
                     label: ele.label
                 });
             }
             else{
-                return state.Label_List.concat({
+                const newState = [...state];
+                console.log("newState" , newState);
+                let ans = newState.concat({
                     id: ele.id,
                     label: ele.label
-                })
+                });
+                console.log(ans);
+                return ans;
             }
         default : return state
     }

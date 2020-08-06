@@ -1,6 +1,5 @@
 import '../Styles/Modal.css';
 import React from 'react';
-import {Button,Form,Col} from 'react-bootstrap'
 
 class Modal extends React.Component{
 
@@ -21,12 +20,14 @@ class Modal extends React.Component{
   handleSubmit(event){
     let date = new Date(this.state.deadline);
     console.log(this.state);
-    this.props.addTodo(this.state.id, this.state.val, date , this.state.label , this.state.priority);
-    this.props.addLabel(this.state.id,this.state.label);
+    this.props.submitForm(this.state.id, this.state.val, date , this.state.label , this.state.priority);
+    console.log(this.props.todos)
+    // this.props.addLabel(this.state.id,this.state.label);
+    console.log(this.props.Label_List);
     this.setState({
-        val : "",
-        id : this.state.id + 1,
-        label: "",
+      val : "",
+      id : this.state.id + 1,
+      label: "",
     });
     this.props.handleClose();
     event.preventDefault();
@@ -65,8 +66,8 @@ class Modal extends React.Component{
                             <input type ="date" name="deadline" onChange={this.handleText} />
                             <input type="submit" value="Submit" />
                     </label>
-                    <button onClick={this.props.handleClose}>close</button>
                 </form>
+                <button onClick={()=> this.props.handleClose()}>close</button>
             </section>
           </div>
         )

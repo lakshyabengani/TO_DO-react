@@ -12,13 +12,18 @@ class Home extends React.Component{
         }
     }
 
+    componentDidMount(){
+        console.log('called');
+    }
+
     handleModal = () =>{
         this.setState({
           showModal : true
         })
       }
     
-      handleClose =() =>{
+    handleClose =() =>{
+          console.log("close Called");
         this.setState({
           showModal : false
         })
@@ -39,7 +44,7 @@ class Home extends React.Component{
         
         return (
             <div>
-                <Modal show={this.state.showModal} handleClose ={this.handleClose} addTodo={this.props.addTodo} addLabel={this.props.addLabel} />
+                <Modal show={this.state.showModal} handleClose ={this.handleClose} addTodo={this.props.addTodo} addLabel={this.props.addLabel} todos={this.props.todos} Label_List={this.props.Label_List} submitForm={this.props.submitForm} />
                 <p/>
                 <div>
                     {this.renderTodo()}

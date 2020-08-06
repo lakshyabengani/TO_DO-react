@@ -8,8 +8,7 @@ export const ConfigStore = () =>{
         combineReducers({
             todos : manageTodo,
             Label_List : manageLabel,
-            isLoggedIn : manageAuth,
-        })
+        }),
     );
     return store;
 }

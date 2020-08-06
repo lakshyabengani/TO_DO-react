@@ -7,10 +7,12 @@ import { BrowserRouter, Route, Switch, Redirect, withRouter } from 'react-router
 import {connect} from 'react-redux';
 import {addTodo,addLabel,deleteTodo,toggleTodo} from './Redux/ActionCreators'
 
+
 const mapStateToProps = state =>{
+  console.log("state",state);
   return {
-    todos: [],
-    Label_List: [],
+    todos: state.todos,
+    Label_List: state.Label_List,
     isLoggedIn : false,
   }
 }
@@ -43,6 +45,13 @@ class App extends React.Component {
       // this.handleModal = this.handleModal.bind(this)
   }
   
+  submitForm = (id, val, date , label , priority) =>{
+    let todo = this.props.addTodo(id,val,date,label,priority);
+    let Label = this.props.addLabel(id,label);
+    console.log(todo);
+    console.log (Label);
+  }
+
   // handleModal(){
   //   this.setState({
   //     showModal : true
@@ -102,7 +111,7 @@ class App extends React.Component {
           <NavBar />
           <div className="grid">
           <Switch>
-            <Route exact path="/Home" render={()=><Home Label_List={this.props.Label_List} todos={this.props.todos} handleDelete={this.props.deleteTodo} handleChange={this.props.toggleTodo} addTodo={this.props.addTodo} addLabel={this.props.addLabel} />} />
+            <Route exact path="/Home" render={()=><Home submitForm={this.submitForm} Label_List={this.props.Label_List} todos={this.props.todos} handleDelete={this.props.deleteTodo} handleChange={this.props.toggleTodo} addTodo={this.props.addTodo} addLabel={this.props.addLabel} />} />
             <Route exact path="/">
               <Redirect to="/Home" />
             </Route>
